@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Hello user</title>
+</head>
+<body>
+<div align="center">
+    <table border="1" cellpadding="5">
+        <caption><h2>Users</h2></caption>
+        <tr>
+
+            <th>Ваше имя</th>
+            <th>Ваш пароль</th>
+            <th>Ваш возраст</th>
+
+
+    <tbody>
+    <tr th:each="user : ${user}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.age}"></td>
+
+    </tr>
+    </tbody>
+    </table>
+    <p><a href="/users/add">Add user</a></p>
+</div>
+<form action="/logout"  method="post">
+    <input type="submit" value="Выйти"/>
+</form>
+</body>
+</html>
