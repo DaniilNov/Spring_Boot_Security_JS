@@ -13,6 +13,7 @@
         <tr>
 
             <th>Ваше имя</th>
+            <th>Ваша роль</th>
             <th>Ваш пароль</th>
             <th>Ваш возраст</th>
 
@@ -20,6 +21,7 @@
     <tbody>
     <tr th:each="user : ${user}">
         <td th:text="${user.username}"></td>
+        <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
         <td th:text="${user.password}"></td>
         <td th:text="${user.age}"></td>
 
