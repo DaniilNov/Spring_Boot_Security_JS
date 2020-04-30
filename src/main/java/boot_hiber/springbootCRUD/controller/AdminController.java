@@ -59,10 +59,13 @@ public class AdminController {
 
 
     @GetMapping("/users/add")
-    public ModelAndView addPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("addUser");
-        return modelAndView;
+
+    public String addPage(User user){
+        return "addUser";
+//    public ModelAndView addPage() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("addUser");
+//        return modelAndView;
     }
 
 

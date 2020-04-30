@@ -12,21 +12,26 @@
         <caption><h2>Users</h2></caption>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>Username</th>
+            <th>Password</th>
             <th>Age</th>
             <th>Action</th>
 
             <tbody>
-            <tr th:each="user : ${users}">
+            <tr th:each="user : ${listUsers}">
                 <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.password}"></td>
                 <td th:text="${user.age}"></td>
-                <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
-                <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+                <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/users/remove/{id}(id=${user.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
-    <p><a href="/user-add">Add user</a></p>
+    <p><a href="/users/add">Add user</a></p>
 </div>
+<form action="/logout"  method="post">
+    <input type="submit" value="Выйти"/>
+</form>
 </body>
 </html>

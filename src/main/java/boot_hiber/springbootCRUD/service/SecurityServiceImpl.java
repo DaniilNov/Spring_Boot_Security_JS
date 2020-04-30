@@ -1,6 +1,5 @@
 package boot_hiber.springbootCRUD.service;
 
-
 import boot_hiber.springbootCRUD.dao.RoleDao;
 import boot_hiber.springbootCRUD.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
