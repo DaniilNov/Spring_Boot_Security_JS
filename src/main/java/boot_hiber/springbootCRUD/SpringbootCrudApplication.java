@@ -27,7 +27,6 @@ import java.util.Properties;
 
 @ComponentScan (basePackages = {"boot_hiber.springbootCRUD"})
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class SpringbootCrudApplication {
 
     public static void main(String[] args) {
