@@ -5,12 +5,10 @@ package boot_hiber.springbootCRUD.controller;
 import boot_hiber.springbootCRUD.model.User;
 import boot_hiber.springbootCRUD.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -24,36 +22,51 @@ public class AdminController {
 
     @GetMapping("/users")
     public ModelAndView ListUsers() {
+//        List<User> users = userService.listUsers();
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("users");
+//        modelAndView.addObject("listUsers", users);
         List<User> users = userService.listUsers();
         ModelAndView modelAndView = new ModelAndView();
+        User authuser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = new User();
         modelAndView.setViewName("users");
         modelAndView.addObject("listUsers", users);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("authuser",authuser);
+
         return modelAndView;
     }
 
 
+//    @GetMapping("/users/remove/{id}")
+//    public String removeUser(@PathVariable("id") Long id) {
+//        userService.removeUser(id);
+//        return "redirect:/users";
+//    }
+
+
+//    @GetMapping("/users/edit/{id}")
+//    public ModelAndView editPage(@PathVariable("id") Long id) {
+//        User user = userService.getUserById(id);
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("editUser");
+//        modelAndView.addObject("user", user);
+//        return modelAndView;
+//    }
+
     @GetMapping("/users/remove/{id}")
-    public String removeUser(@PathVariable("id") Long id) {
+    public String removeUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+
         userService.removeUser(id);
         return "redirect:/users";
     }
 
-
-    @GetMapping("/users/edit/{id}")
-    public ModelAndView editPage(@PathVariable("id") Long id) {
-        User user = userService.getUserById(id);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("editUser");
-        modelAndView.addObject("user", user);
-        return modelAndView;
-    }
-
-
-    @PostMapping("/users/edit")
-    public ModelAndView editUser(@ModelAttribute("user") User user) {
+    @PostMapping("/users/edit/{id}")
+    public ModelAndView editUser(@ModelAttribute("user") User user ,@PathVariable("id") Long id, @RequestParam String[] checkboxRoles) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/users");
-        userService.updateUser(user);
+        userService.updateUser(user,checkboxRoles);
         return modelAndView;
     }
 
@@ -70,10 +83,10 @@ public class AdminController {
 
 
     @PostMapping("/users/add")
-    public ModelAndView addUser(@ModelAttribute("user") User user, BindingResult result) {
+    public ModelAndView addUser(@ModelAttribute("user") User user, BindingResult result, @RequestParam String[] checkboxRoles) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/users");
-        userService.addUser(user);
+        userService.addUser(user, checkboxRoles);
         return modelAndView;
     }
 

@@ -7,9 +7,9 @@ import boot_hiber.springbootCRUD.model.User;
 import java.util.List;
 
 public interface UserService{
-    void addUser(User user);
+    void addUser(User user, String[] checkboxRoles);
 
-    void updateUser(User user);
+    void updateUser(User user, String[] checkboxRoles);
 
     void removeUser(Long id);
 
