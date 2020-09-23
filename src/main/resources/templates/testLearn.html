@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <style>
+        td {
+            padding: 10px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        function showUser() {
+            $.get('/clients', function (data) {
+                console.log(data);
+
+                var table = "<table border='1'><tr><th>id</th><th>username</th><th>password</th><th>age</th><th>roles</th></tr>";
+
+                for (i = 0; i < data.length; i++) {
+                    table = table + "<tr><td>" + data[i].id + "</td><td>" + data[i].username + "</td><td>" + data[i].password + "</td><td>" + data[i].age + "</td></tr>";
+                }
+
+                table = table + "</table>";
+                $("#test_user").html(table);
+
+            })
+
+        }
+        $(document).ready(function () {
+
+showUser();
+
+        });
+
+        const requestURL = 'http://localhost:8080/clients'
+
+        function sendUser() {
+
+            fetch(requestURL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: $("#user_name").val(),
+                    password: $("#user_password").val(),
+                    age: $("#user_age").val(),
+                    idRole: $("#user_role").val()
+                }),
+                headers:{'Accept': 'application/json',
+                    'Content-Type': 'application/json; charset=utf-8'}
+            })
+
+            var a= document.getElementById('user_name');
+            console.log(a);
+
+        }
+
+
+
+
+
+            // $.ajax({
+            //     url:'/clients',
+            //     dataType: 'json',
+            //     type:'POST',
+            //     cache: false,
+            //     contentType: 'application/json',
+            //     data: JSON.stringify({
+            //         username: $("#user_name").val(),
+            //         password: $("#user_password").val(),
+            //         age: $("#user_age").val(),
+            //         idRole: $("#user_role").val()
+            //     }),
+            //     success: function () {
+            //         showUser();
+            //     }
+            // });
+
+
+
+    </script>
+
+</head>
+<body>
+<div id="test_user"></div>
+
+
+    <input type="text" id ="user_name" placeholder="Name">
+    <input type="text" id ="user_password" placeholder="Password">
+    <input type="text" id ="user_age" placeholder="Age">
+    <select id="user_role">
+        <option value="2">ROLE_ADMIN</option>
+        <option value="1">ROLE_USER</option>
+    </select>
+    <input type="button" onclick="sendUser()" value="Save">
+
+
+<!--<script type="text/javascript" src="templates/js/script.js" th:src="@{templates/js/script.js}"></script>-->
+<script type="text/javascript" src="../static/script.js"></script>
+</body>
+</html>
