@@ -62,13 +62,13 @@ public class AdminController {
         return "redirect:/users";
     }
 
-    @PostMapping("/users/edit/{id}")
-    public ModelAndView editUser(@ModelAttribute("user") User user ,@PathVariable("id") Long id, @RequestParam String[] checkboxRoles) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/users");
-        userService.updateUser(user,checkboxRoles);
-        return modelAndView;
-    }
+//    @PostMapping("/users/edit/{id}")
+//    public ModelAndView editUser(@ModelAttribute("user") User user ,@PathVariable("id") Long id, @RequestParam String idRole) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("redirect:/users");
+//        userService.updateUser(user,idRole);
+//        return modelAndView;
+//    }
 
 
     @GetMapping("/users/add")
@@ -82,13 +82,13 @@ public class AdminController {
     }
 
 
-    @PostMapping("/users/add")
-    public ModelAndView addUser(@ModelAttribute("user") User user, BindingResult result, @RequestParam String[] checkboxRoles) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/users");
-        userService.addUser(user, checkboxRoles);
-        return modelAndView;
-    }
+//    @PostMapping("/users/add")
+//    public ModelAndView addUser(@ModelAttribute("user") User user, BindingResult result, @RequestParam String idRole) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("redirect:/users");
+//        userService.addUser(user, idRole);
+//        return modelAndView;
+//    }
 
 
     @GetMapping("/login")

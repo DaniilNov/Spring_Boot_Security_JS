@@ -104,8 +104,8 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="#" th:action="@{/users/edit/{id}(id=${user.id})}"
-                                                          th:object="${user}" method="post">
+                                                    <!--<form action="#" th:action="@{/users/edit/{id}(id=${user.id})}"-->
+
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="disabledTextInput">Id</label>
@@ -114,55 +114,54 @@
                                                                        th:placeholder="${user.getId()}">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="username"
+                                                                <label for="oldusername"
                                                                        class="col-form-label">Username</label>
                                                                 <input type="text" id="oldusername" name="username"
-                                                                       th:value="*{username}" class="form-control"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password"
-                                                                       class="col-form-label">Password</label>
-                                                                <input type="text" id="password1" name="password"
-                                                                       th:value="*{password}" class="form-control"/>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password" class="col-form-label">Age</label>
-                                                                <input type="text" id="newage" name="age"
-                                                                       th:value="*{age}" class="form-control"/>
+                                                                       th:value="*{user.username}" class="form-control"/>
                                                             </div>
 
-                                                            <!--Изменение роли-->
                                                             <div class="form-group">
-                                                                <!--передаю "1" что бы обойти ошибку 400 ('Required String[] parameter 'checkboxRoles' is not present')-->
-                                                                <input type="hidden" name="checkboxRoles" value="1">
-                                                                <div class="col-md-12 center-block text-center">
-                                                                    <label class="col-form-lable">
-                                                                        <p class="font-weight-bold">Roles: </p>
-                                                                    </label>
-                                                                    <div class="col-md-12 center-block text-center">
-                                                                        <div class="form-check-inline">
-                                                                            <label class="form-check-label">
-                                                                                <input type="checkbox" class="form-check-input" name="checkboxRoles"
-                                                                                       id="modal-checkboxUser" value="ROLE_USER">User
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check-inline">
-                                                                            <label class="form-check-label">
-                                                                                <input type="checkbox" class="form-check-input" name="checkboxRoles"
-                                                                                       id="modal-checkboxAdmin" value="ROLE_ADMIN">Admin
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
+                                                                <label for="password1"
+                                                                       class="col-form-label">Password</label>
+                                                                <input type="text" id="password1" name="password"
+                                                                       th:value="*{user.password}" class="form-control"/>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="newage" class="col-form-label">Age</label>
+                                                                <input type="text" id="newage" name="age"
+                                                                       th:value="*{user.age}" class="form-control"/>
+                                                            </div>
+
+                                                            <!--<div class="form-group">-->
+                                                                <!--<label for="role">role:</label>-->
+                                                                <!--<div class="col-md-8 mx-auto">-->
+                                                                    <!--<select multiple class="form-control" id="newrole"-->
+                                                                            <!--name="idRole">-->
+                                                                        <!--<option value="2">ROLE_ADMIN</option>-->
+                                                                        <!--&gt;-->
+                                                                        <!--<option value="1">ROLE_USER</option>-->
+                                                                    <!--</select>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <div class="form-group">
+                                                                <label for="role">role:</label>
+                                                                <div class="col-md-3 my-auto mx-auto">
+                                                                    <select id="idRole">
+                                                                        <option value="2">ROLE_ADMIN</option>
+                                                                        >
+                                                                        <option value="1">ROLE_USER</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                            <!--Изменение роли-->
+
 
                                                         </div>
                                                         <div class="modal-footer border-top-0 d-flex justify-content-center">
-                                                            <button type="submit" class="btn btn-success">Submit
-                                                            </button>
+                                                            <!--<button type="submit" class="btn btn-success">Submit-->
+                                                            <!--</button>-->
+                                                            <button id="updateUser" class="btn btn-success">Submit</button>
                                                         </div>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -216,8 +215,10 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="role" class="col-form-label">role</label>
-                                                                <input type="text" id="role" name="role"  class="form-control" th:each="role : ${user.getRoles()}"
-                                                                       th:placeholder="${role.getName()}" />
+                                                                <input type="text" id="role" name="role"
+                                                                       class="form-control"
+                                                                       th:each="role : ${user.getRoles()}"
+                                                                       th:placeholder="${role.getName()}"/>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer border-top-0 d-flex justify-content-center">
@@ -242,58 +243,46 @@
 
                             <div class="container">
 
-                                <form action="#" th:action="@{/users/add}" th:object="${user}" method="post">
-                                    <div class="form-group row justify-content-md-center">
-                                        <div class="col-xs-8">
-                                            <label for="username">Username</label>
-                                            <input type="text" th:field="*{username}" class="form-control" id="username"
-                                                   placeholder="Username" name="username">
-                                            <br/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row justify-content-md-center">
-                                        <div class="col-xs-8">
-                                            <label for="password">Password</label>
-                                            <input type="text" th:field="*{password}" class="form-control" id="password"
-                                                   placeholder="Password" name="password">
-                                            <br/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row justify-content-md-center">
-                                        <div class="col-xs-8">
-                                            <label for="age">Age</label>
-                                            <input type="text" th:field="*{age}" class="form-control" id="age"
-                                                   placeholder="Age"
-                                                   name="age">
-                                            <br/>
-                                        </div>
-                                    </div>
-                                    <!--Добавление ролей-->
-                                    <div class=" form-group row justify-content-md-center">
-                                        <div class="col-sm-2  align-self-center">
-                                            <p class="font-weight-bold">Roles: </p>
-                                        </div>
-                                        <div class="col-sm-3 align-self-center">
-                                            <input type="hidden" name="checkboxRoles" value="1"/>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="checkboxRoles"
-                                                           value="ROLE_USER">User
-                                                </label>
-                                            </div>
-                                            <div class="form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="checkboxRoles"
-                                                           value="ROLE_ADMIN">Admin
-                                                </label>
-                                            </div>
-                                        </div>
+                                <!--<form action="#" th:action="@{/users/add}" th:object="${user}" method="post">-->
 
-                                        <!--Добавление ролей-->
-
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-xs-8">
+                                        <label for="user_name">Username</label>
+                                        <input type="text" class="form-control" id="user_name"
+                                               placeholder="Username" name="username">
+                                        <br/>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Add new user</button>
-                                </form>
+                                </div>
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-xs-8">
+                                        <label for="user_password">Password</label>
+                                        <input type="text" class="form-control" id="user_password"
+                                               placeholder="Password" name="password">
+                                        <br/>
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-md-center">
+                                    <div class="col-xs-8">
+                                        <label for="user_age">Age</label>
+                                        <input type="text" class="form-control" id="user_age"
+                                               placeholder="Age"
+                                               name="age">
+                                        <br/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role">role:</label>
+                                    <div class="col-md-3 my-auto mx-auto">
+                                        <select id="user_role">
+                                            <option value="2">ROLE_ADMIN</option>
+                                            >
+                                            <option value="1">ROLE_USER</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button onclick="sendUser()" class="btn btn-success">Add new user</button>
+
                             </div>
                         </div>
                     </div>
@@ -302,6 +291,10 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="../static/script.js" th:src="@{/script.js}"></script>
+
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

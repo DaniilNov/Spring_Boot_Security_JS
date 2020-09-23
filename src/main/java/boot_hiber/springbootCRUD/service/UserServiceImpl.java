@@ -1,11 +1,11 @@
 package boot_hiber.springbootCRUD.service;
 
 
-
-import boot_hiber.springbootCRUD.dao.RoleDao;
-import boot_hiber.springbootCRUD.dao.UserDao;
+import boot_hiber.springbootCRUD.dto.UserDto;
 import boot_hiber.springbootCRUD.model.Role;
 import boot_hiber.springbootCRUD.model.User;
+import boot_hiber.springbootCRUD.repository.RoleRepository;
+import boot_hiber.springbootCRUD.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,62 +19,91 @@ import java.util.Set;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
 
     @Autowired
-    private RoleDao roleDao;
+    UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
 
     @Override
-    public void addUser(User user, String[] checkboxRoles)  {
+    public void addUser(UserDto userDto) {
+        User user = new User(userDto.getUsername(),userDto.getPassword(),userDto.getAge());
         Set<Role> roles = new HashSet<>();
-        parseRole(roles,checkboxRoles);
-//        roles.add(roleDao.getRoleById(1L));
+        if (userDto.getIdRole().equals("2")){
+            roles.add(roleRepository.getOne(2L));
+        }
+        else {
+            roles.add(roleRepository.getOne(1L));
+        }
         user.setRoles(roles);
-//        user.setRoles(Collections.singleton(new Role(1L)));
-        userDao.addUser(user);
+        userRepository.save(user);
     }
-
-
-    @Override
-    public void updateUser(User user, String[] checkboxRoles) {
-        Set<Role> roles = new HashSet<>();
-        parseRole(roles,checkboxRoles);
-        user.setRoles(roles);
-        userDao.updateUser(user);
-
+//    public void addUser(User user, String idRole) {
 //        Set<Role> roles = new HashSet<>();
-//        roles.add(roleDao.getRoleById(1L));
+//        if (idRole.equals("2")){
+//            roles.add(roleRepository.getOne(2L));
+//        }
+//        else {
+//            roles.add(roleRepository.getOne(1L));
+//        }
 //        user.setRoles(roles);
-//        user.setRoles(Collections.singleton(new Role(1L)));
+//        userRepository.save(user);
+//    }
+
+
+    @Override
+    public void updateUser(UserDto userDto) {
+        User user = getUserById(userDto.getId());
+        Set<Role> roles = new HashSet<>();
+        if (userDto.getIdRole().equals("2")){
+            roles.add(roleRepository.getOne(2L));
+        }
+        else {
+            roles.add(roleRepository.getOne(1L));
+        }
+        user.setRoles(roles);
+        userRepository.save(user);
     }
+
+//    public void updateUser(User user, String idRole) {
+//        Set<Role> roles = new HashSet<>();
+//       if (idRole.equals("2")){
+//           roles.add(roleRepository.getOne(2L));
+//       }
+//       else {
+//           roles.add(roleRepository.getOne(1L));
+//       }
+//       user.setRoles(roles);
+//        userRepository.save(user);}
+
 
 
     @Override
     public void removeUser(Long id) {
-        userDao.removeUser(id);
+        userRepository.deleteById(id);
     }
 
 
     @Override
     public User getUserById(Long id) {
-        return userDao.getUserById(id);
+        return userRepository.getOne(id);
     }
 
     @Override
     public List<User> listUsers() {
-        return userDao.listUsers();
+        return userRepository.findAll();
     }
 
-// Парсим массив строк с ролями
-    public void parseRole(Set<Role>roles, String [] checkRoles){
-        for (String checkRole:checkRoles){
-            if (checkRole.equals("ROLE_ADMIN")){
-                roles.add(roleDao.getRoleById(2L));
+    // Парсим массив строк с ролями. Пока не пригодился.
+    public void parseRole(Set<Role> roles, String[] checkRoles) {
+        for (String checkRole : checkRoles) {
+            if (checkRole.equals("ROLE_ADMIN")) {
+                roles.add(roleRepository.getOne(2L));
             }
-            if (checkRole.equals("ROLE_USER")){
-                roles.add(roleDao.getRoleById(1L));
+            if (checkRole.equals("ROLE_USER")) {
+                roles.add(roleRepository.getOne(1L));
             }
         }
     }

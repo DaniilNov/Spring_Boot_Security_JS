@@ -1,5 +1,7 @@
 package boot_hiber.springbootCRUD.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import java.util.Set;
 
 
 @Entity
+//@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "role")
 public class Role implements GrantedAuthority {
 
@@ -18,6 +21,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "NAME")
     private String name;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
     private Set<User> users;
 

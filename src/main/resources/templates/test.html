@@ -1,59 +1,37 @@
-<!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
+    <title>Test</title>
 </head>
+
 <body>
-<div class="container">
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#form">
-        See Modal with Form
-    </button>
+<!-- Кнопка, открывающая модальное окно -->
+<a href="#" class="btn btn-primary">Открыть модальное окно</a>
+
+<!-- HTML-код модального окна-->
+<div id="myModal" class="modal fade">
+    <!--...-->
 </div>
 
-<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-0">
-                <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="email1">Email address</label>
-                        <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password1">Password</label>
-                        <input type="password" class="form-control" id="password1" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="password1">Confirm Password</label>
-                        <input type="password" class="form-control" id="password2" placeholder="Confirm Password">
-                    </div>
-                </div>
-                <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- Скрипт, привязывающий событие click, открывающее модальное окно, к элементам, имеющим класс .btn -->
+<script>
+    $(document).ready(function(){
+        //при нажатию на любую кнопку, имеющую класс .btn
+        $(".btn").click(function() {
+            //открыть модальное окно с id="myModal"
+            $("#myModal").modal('show');
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

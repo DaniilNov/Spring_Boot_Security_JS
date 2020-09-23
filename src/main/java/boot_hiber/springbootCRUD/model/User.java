@@ -1,6 +1,8 @@
 package boot_hiber.springbootCRUD.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,9 +10,20 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+//@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
+    public User(String username, String password, Integer age) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.roles = roles;
+    }
+
+    public User() {
+    }
 
     @Id
     @Column(name = "ID")
@@ -27,11 +40,13 @@ public class User implements UserDetails {
     @Column(name = "AGE")
     private Integer age;
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+
 
     public Long getId() {
         return id;

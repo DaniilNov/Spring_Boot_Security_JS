@@ -21,6 +21,10 @@ public class UserController {
         modelAndView.addObject("user", user);
         return modelAndView;
     }
+    @GetMapping("/test")
+    public String test(){
+        return "testLearn";
+    }
 
 
 
