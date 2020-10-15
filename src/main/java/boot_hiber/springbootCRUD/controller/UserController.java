@@ -22,8 +22,11 @@ public class UserController {
         return modelAndView;
     }
     @GetMapping("/test")
+//    public String test(){
+//        return "testLearn";
+//    }
     public String test(){
-        return "testLearn";
+        return "test";
     }
 
 

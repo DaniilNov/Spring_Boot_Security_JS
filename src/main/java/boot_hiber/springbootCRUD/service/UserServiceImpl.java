@@ -56,6 +56,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UserDto userDto) {
         User user = getUserById(userDto.getId());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setAge(userDto.getAge());
         Set<Role> roles = new HashSet<>();
         if (userDto.getIdRole().equals("2")){
             roles.add(roleRepository.getOne(2L));
